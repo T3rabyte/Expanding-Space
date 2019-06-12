@@ -79,6 +79,9 @@ public class enemy : MonoBehaviour
 
         if (inRange)
         {
+            GameObject.Find("player").GetComponent<SpriteRenderer>().color = new Color32(255, 144, 144, 255);
+            yield return new WaitForSeconds(0.11f);
+            GameObject.Find("player").GetComponent<SpriteRenderer>().color = Color.white;
             GameObject.Find("GM").GetComponent<GM>().healthPlayer -= 20;
         }
         yield return new WaitForSeconds(0.3f);
@@ -110,6 +113,9 @@ public class enemy : MonoBehaviour
         }
         else if (inRange)
         {
+            GameObject.Find("player").GetComponent<SpriteRenderer>().color = new Color32(255, 144, 144, 255);
+            yield return new WaitForSeconds(0.11f);
+            GameObject.Find("player").GetComponent<SpriteRenderer>().color = Color.white;
             GameObject.Find("GM").GetComponent<GM>().healthPlayer -= 40;
         }
 

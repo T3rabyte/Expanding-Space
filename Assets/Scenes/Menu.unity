@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 1751679118}
   - component: {fileID: 1751679117}
   m_Layer: 5
-  m_Name: Button
+  m_Name: naar lvl1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1875144938}
         m_MethodName: naarLVL1
         m_Mode: 1
         m_Arguments:
@@ -496,6 +496,7 @@ GameObject:
   - component: {fileID: 1875144937}
   - component: {fileID: 1875144936}
   - component: {fileID: 1875144935}
+  - component: {fileID: 1875144938}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -567,3 +568,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1875144938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875144934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c756172753009d54b82c885a65d2339e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  naarLVL1Button: {fileID: 1751679117}

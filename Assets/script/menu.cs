@@ -1,19 +1,28 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class menu : MonoBehaviour
 {
-    public static bool LVL1Voltooid = false;
 
-    public Scene scene;
+    private Scene scene;
 
-    void Start()
+    public void Start()
     {
         scene = SceneManager.GetActiveScene();
-        DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void Update()
+    {
         if (scene.name == "Menu")
         {
+            Button naarLVL1Button;
+            naarLVL1Button = GameObject.Find("Canvas").GetComponentInChildren<Button>();
 
+            if (boolUpdate.LVL1Complete == true)
+            {
+                naarLVL1Button.interactable = false;
+            }
         }
     }
 
@@ -32,4 +41,3 @@ public class menu : MonoBehaviour
         SceneManager.LoadScene("lvl1");
     }
 }
-

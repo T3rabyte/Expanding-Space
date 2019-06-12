@@ -14,6 +14,8 @@ public class EnemyProjectile : MonoBehaviour
     public Rigidbody2D rb;
 
     float orbXposition;
+
+    bool buisy = false;
     
 
     void Start()
@@ -31,15 +33,25 @@ public class EnemyProjectile : MonoBehaviour
         rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
 
 
-        if (inRange)
+        if (inRange && !buisy)
         {
-            GameObject.Find("GM").GetComponent<GM>().healthPlayer -= 10;
-            Destroy(this.gameObject);
+            buisy = true;
+            StartCoroutine(damage());
         }
         if (destroy)
         {
             Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator damage()
+    {
+        GameObject.Find("player").GetComponent<SpriteRenderer>().color = new Color32(255, 144, 144, 255);
+        yield return new WaitForSeconds(0.11f);
+        GameObject.Find("player").GetComponent<SpriteRenderer>().color = Color.white;
+        GameObject.Find("GM").GetComponent<GM>().healthPlayer -= 10;
+        Destroy(this.gameObject);
+        StopCoroutine(damage());
     }
 
 }

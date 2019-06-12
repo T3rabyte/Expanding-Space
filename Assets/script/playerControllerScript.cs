@@ -50,9 +50,8 @@ public class playerControllerScript : MonoBehaviour
 
             anim.SetFloat("speed", Mathf.Abs(move));
 
-
             //////////////////////////////////////////////////////////////////////////////// Horizontal movement
-            if (isGrounded)
+            if (isGrounded && !buk)
             {
                 rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
             }
@@ -106,7 +105,7 @@ public class playerControllerScript : MonoBehaviour
 
             //////////////////////////////////////////////////////////////////////////////// shieten
 
-            if (Input.GetMouseButtonDown(1) && facingRight == true && !buk && isGrounded)
+            if (Input.GetMouseButtonDown(1) && !buk && isGrounded)
             {
                 StartCoroutine(shoot());
             }

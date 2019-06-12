@@ -100,8 +100,8 @@ public class GM : MonoBehaviour
         GameObject.Find("Boss").GetComponent<enemy>().audioSource.clip = GameObject.Find("Boss").GetComponent<enemy>().deathScream;
         GameObject.Find("Boss").GetComponent<enemy>().audioSource.Play();
         GameObject.Find("Boss").GetComponent<Animator>().Play("bossDied");
-        menu.LVL1Voltooid = true;
+        boolUpdate.LVL1Complete = true;
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadScene("Victory");
+        SceneManager.LoadScene("Fail");
     }
 }

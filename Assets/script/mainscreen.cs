@@ -7,12 +7,6 @@ public class mainscreen : MonoBehaviour
     public Animator anim;
 
     public bool Buisy = false;
-
-    void Start()
-    {
-        
-    }
-
     
     void Update()
     {
