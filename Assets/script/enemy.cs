@@ -23,33 +23,42 @@ public class enemy : MonoBehaviour
     public AudioClip laserCharging;
     public AudioClip laserShot;
     public AudioClip deathScream;
+    
+    float distance;
+    public float maxAllowedDistance = 1.837f;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        player = GameObject.Find("player");
     }
 
     void Update()
     {
-        if (GameObject.Find("GM").GetComponent<GM>().EnemyActive == true)
-        {
-            if (GameObject.Find("GM").GetComponent<GM>().healthEnemy >= 0)
-            {
-                if (!Buisy && player.transform.position.x >= 37.89 && player.transform.position.x <= 40.022 && player.transform.position.y >= 4.682)
-                {
-                    Buisy = true;
-                    StartCoroutine(enemySchootingOrb());
-                }
-                else if (!Buisy && player.transform.position.y <= 4.682 && player.transform.position.x >= 38.598 && player.transform.position.x <= 40.022)
-                {
-                    Buisy = true;
-                    StartCoroutine(enemyGroundPound());
-                }
-                else if (!Buisy && player.transform.position.y <= 4.682 && player.transform.position.x >= 37.89 && player.transform.position.x <= 38.598)
-                {
-                    Buisy = true;
-                    StartCoroutine(enemyLazerBeam());
+        distance = Vector3.Distance(transform.position, player.transform.position);
 
+        if (distance < maxAllowedDistance)
+        {
+            if (GameObject.Find("GM").GetComponent<GM>().EnemyActive == true)
+            {
+                if (GameObject.Find("GM").GetComponent<GM>().healthEnemy >= 0)
+                {
+                    if (!Buisy && player.transform.position.x >= 78.954 && player.transform.position.x <= 81.47 && player.transform.position.y >= 4.682)
+                    {
+                        Buisy = true;
+                        StartCoroutine(enemySchootingOrb());
+                    }
+                    else if (!Buisy && player.transform.position.y <= 4.682 && player.transform.position.x >= 80.208 && player.transform.position.x <= 81.47)
+                    {
+                        Buisy = true;
+                        StartCoroutine(enemyGroundPound());
+                    }
+                    else if (!Buisy && player.transform.position.y <= 4.682 && player.transform.position.x >= 78.954 && player.transform.position.x <= 80.208)
+                    {
+                        Buisy = true;
+                        StartCoroutine(enemyLazerBeam());
+
+                    }
                 }
             }
         }

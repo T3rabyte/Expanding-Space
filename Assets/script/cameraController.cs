@@ -21,8 +21,16 @@ public class cameraController : MonoBehaviour
 
     void Update()
     {
-
-        locatie();
+        if (player.transform.position.x < 79.38)
+        {
+            locatie();
+        }
+        if (player.transform.position.x > 79.38)
+        {
+            transform.position = new Vector3(81.154f, 4.7f, -10);
+            GameObject.Find("border").GetComponent<BoxCollider2D>().enabled = true;
+            background.transform.position = new Vector3(81.154f, 4.652212f, -1.0625f);
+        }
 
         inRange = endOfCamera.IsTouchingLayers(LayerMask.GetMask("player"));
 

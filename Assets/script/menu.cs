@@ -49,6 +49,11 @@ public class menu : MonoBehaviour
         }
     }
 
+    public void controls()
+    {
+        SceneManager.LoadScene("controls");
+    }
+
     public void playAgain()
     {
         SceneManager.LoadScene("Menu");

@@ -20,7 +20,7 @@ public class FlyingOrbSpawner : MonoBehaviour
     
     void Update()
     {
-        Vector3 TargetPlayer = new Vector3(Player.position.x, 5.295693f, -1);
+        Vector3 TargetPlayer = new Vector3(Player.position.x, 5.295693f, -0.9f);
         transform.position = Vector3.MoveTowards(transform.position, TargetPlayer, Flyspeed);
 
         if (transform.position.x < Player.transform.position.x && !facingRight)
