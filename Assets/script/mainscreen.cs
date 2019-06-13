@@ -18,7 +18,8 @@ public class mainscreen : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            SceneManager.LoadScene("Menu");
+            anim = GameObject.Find("fade").GetComponent<Animator>();
+            StartCoroutine(StartGame());
         }
     }
 
@@ -28,5 +29,12 @@ public class mainscreen : MonoBehaviour
         yield return new WaitForSeconds(0.45f);
         Buisy = false;
         StopCoroutine(Bling());
+    }
+
+    IEnumerator StartGame()
+    {
+        anim.SetBool("FadeStart", true);
+        yield return new WaitForSeconds(0.45f);
+        SceneManager.LoadScene("Cutscene");
     }
 }

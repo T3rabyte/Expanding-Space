@@ -18,12 +18,12 @@ public class missle : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+        target = GameObject.Find("Missle/orb Target").GetComponent<Transform>();
     }
-
     void Update()
     {
         Vector3 MissleTarget = new Vector3(target.position.x,target.position.y, -1);
-        transform.right = target.position - transform.position;
+        transform.right = new Vector3 (target.position.x - transform.position.x, target.position.y - transform.position.y, 0);
         transform.position = Vector3.MoveTowards(transform.position, MissleTarget, MissleSpeed);
 
         player = MissleCollider.IsTouchingLayers(LayerMask.GetMask("Player"));

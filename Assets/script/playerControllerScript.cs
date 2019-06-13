@@ -14,6 +14,10 @@ public class playerControllerScript : MonoBehaviour
 
     public Animator anim;
 
+    public bool buisy = false;
+
+    float move;
+
     public float jumpForce = 700f;
 
     public bool isGrounded;
@@ -46,7 +50,7 @@ public class playerControllerScript : MonoBehaviour
         {
             anim.SetFloat("vSpeed", rb.velocity.y);
 
-            float move = Input.GetAxis("Horizontal");
+            move = Input.GetAxis("Horizontal");
 
             anim.SetFloat("speed", Mathf.Abs(move));
 
@@ -169,7 +173,24 @@ public class playerControllerScript : MonoBehaviour
 
     IEnumerator shoot()
     {
-        anim.Play("playerShoot");
+        if (move <= 0.01)
+        {
+            anim.Play("playerShoot");
+        }
+        if (move >= 0.01 && !buisy)
+        {
+            buisy = true;
+            anim.Play("playerWalkShoot");
+            yield return new WaitForSeconds(0.3f);
+            buisy = false;
+        }
+        if (move <= -0.01 && !buisy)
+        {
+            buisy = true;
+            anim.Play("playerWalkShoot");
+            yield return new WaitForSeconds(0.3f);
+            buisy = false;
+        }
         audioSource.clip = OrbShot;
         audioSource.volume = 1;
         audioSource.Play();
