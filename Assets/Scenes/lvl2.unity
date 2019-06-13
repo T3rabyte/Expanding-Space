@@ -1090,6 +1090,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c32339f451b990a4f89eb3848212db85, type: 3}
+--- !u!1 &416237851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6936874612560889715, guid: f7e47e748b3a98e449fef90d4566ef99,
+    type: 3}
+  m_PrefabInstance: {fileID: 6936874610991074330}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &416237852
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416237851}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 901689342c60f1146b33846e31a744bf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &420109016
 GameObject:
   m_ObjectHideFlags: 0
@@ -4856,6 +4881,7 @@ MonoBehaviour:
   facingRight: 1
   attacking: 0
   anim: {fileID: 0}
+  buisy: 0
   jumpForce: 135
   isGrounded: 0
   groundCheck: {fileID: 1743648526}
@@ -6899,12 +6925,12 @@ PrefabInstance:
     - target: {fileID: 6936874612560889715, guid: f7e47e748b3a98e449fef90d4566ef99,
         type: 3}
       propertyPath: m_Name
-      value: Lakitu
+      value: Flying enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6936874612560889713, guid: f7e47e748b3a98e449fef90d4566ef99,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40.412
+      value: 40.509
       objectReference: {fileID: 0}
     - target: {fileID: 6936874612560889713, guid: f7e47e748b3a98e449fef90d4566ef99,
         type: 3}
@@ -6956,10 +6982,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6936874612560889713, guid: f7e47e748b3a98e449fef90d4566ef99,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5859312
+      objectReference: {fileID: 0}
+    - target: {fileID: 6936874612560889713, guid: f7e47e748b3a98e449fef90d4566ef99,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5859312
+      objectReference: {fileID: 0}
+    - target: {fileID: 6936874612560889713, guid: f7e47e748b3a98e449fef90d4566ef99,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5859312
+      objectReference: {fileID: 0}
     - target: {fileID: 6936874612560889718, guid: f7e47e748b3a98e449fef90d4566ef99,
         type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 1743648525}
+    - target: {fileID: 6936874612560889712, guid: f7e47e748b3a98e449fef90d4566ef99,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: aea0c51b05e1f5c48879a6ba5c22657c,
+        type: 3}
+    - target: {fileID: 6936874612560889712, guid: f7e47e748b3a98e449fef90d4566ef99,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7e47e748b3a98e449fef90d4566ef99, type: 3}

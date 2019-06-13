@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class menu : MonoBehaviour
 {
     private Scene scene;
+    public bool planeetReveel = false;
     public bool informatieLVL1 = false;
     public bool informatieLVL2 = false;
     public bool LVL1Available = true;
@@ -23,6 +24,11 @@ public class menu : MonoBehaviour
     public Sprite buttonNaarLVL2normaal;
     public Sprite buttonNaarLVL2Ingedrukt;
     public Sprite buttonNaarLVL2Ingedrukt2;
+
+    public Sprite buttonShipNormaal;
+    public Sprite buttonShipIngedrukt;
+    public Sprite buttonShipIngedrukt2;
+
 
     public void Start()
     {
@@ -82,19 +88,43 @@ public class menu : MonoBehaviour
 
     public void naarLVL2()
     {
-        if (informatieLVL2 == false)
+        if (!planeetReveel)
         {
-            informatieLVL2 = true;
-            informatieLVL1 = false;
-            buttonNaarLVL1.image.sprite = buttonNaarLVL1normaal;
-            text.text = "praetor";
-            buttonNaarLVL2.image.sprite = buttonNaarLVL2Ingedrukt;
-            ST.pressedSprite = buttonNaarLVL2Ingedrukt2;
-            buttonNaarLVL2.spriteState = ST;
+            if (informatieLVL2 == false)
+            {
+                informatieLVL2 = true;
+                informatieLVL1 = false;
+                buttonNaarLVL1.image.sprite = buttonNaarLVL1normaal;
+                text.text = "Home";
+                buttonNaarLVL2.image.sprite = buttonNaarLVL2Ingedrukt;
+                ST.pressedSprite = buttonNaarLVL2Ingedrukt2;
+                buttonNaarLVL2.spriteState = ST;
+            }
+            else if (informatieLVL2 == true && LVL2Available)
+            {
+                anim = GameObject.Find("fade").GetComponent<Animator>();
+                anim.Play("FadePlaneetExplosie");
+                planeetReveel = true;
+                informatieLVL2 = false;
+                buttonNaarLVL2normaal = buttonShipNormaal;
+            }
         }
-        else if (informatieLVL2 == true && LVL2Available)
+        if (planeetReveel)
         {
-            StartCoroutine(LoadLVL2());
+            if (informatieLVL2 == false)
+            {
+                informatieLVL2 = true;
+                informatieLVL1 = false;
+                buttonNaarLVL1.image.sprite = buttonNaarLVL1normaal;
+                text.text = "praetor";
+                buttonNaarLVL2.image.sprite = buttonShipIngedrukt;
+                ST.pressedSprite = buttonShipIngedrukt2;
+                buttonNaarLVL2.spriteState = ST;
+            }
+            else if (informatieLVL2 == true && LVL2Available)
+            {
+                StartCoroutine(LoadLVL2());
+            }
         }
     }
 

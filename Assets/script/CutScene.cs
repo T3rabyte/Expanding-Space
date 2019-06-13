@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 public class CutScene : MonoBehaviour
 {
     public Animator anim;
-    public AudioSource audioSource;
-
-    public AudioClip laserBeam;
 
     void Start()
     {
