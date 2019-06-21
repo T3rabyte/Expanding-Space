@@ -27,11 +27,9 @@ public class EnemyProjectile : MonoBehaviour
     {
         inRange = EnemyorbCollider.IsTouchingLayers(LayerMask.GetMask("Player"));
         destroy = EnemyorbCollider.IsTouchingLayers(LayerMask.GetMask("border"));
-
-
+        
         rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
-
-
+        
         if (inRange && !buisy)
         {
             buisy = true;

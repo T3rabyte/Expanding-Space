@@ -14,6 +14,9 @@ public class missle : MonoBehaviour
     public bool destroy;
     public bool bullet;
     public bool ground;
+    public bool blocked;
+
+    public bool active = false;
 
     void Start()
     {
@@ -22,24 +25,34 @@ public class missle : MonoBehaviour
     }
     void Update()
     {
-        Vector3 MissleTarget = new Vector3(target.position.x,target.position.y, -1);
-        transform.right = new Vector3 (target.position.x - transform.position.x, target.position.y - transform.position.y, 0);
-        transform.position = Vector3.MoveTowards(transform.position, MissleTarget, MissleSpeed);
-
-        player = MissleCollider.IsTouchingLayers(LayerMask.GetMask("Player"));
-        destroy = MissleCollider.IsTouchingLayers(LayerMask.GetMask("border"));
-        bullet = MissleCollider.IsTouchingLayers(LayerMask.GetMask("bullet"));
-        ground = MissleCollider.IsTouchingLayers(LayerMask.GetMask("ground"));
-
-
-        if (player && !buisy)
+        if (!active)
         {
-            buisy = true;
-            StartCoroutine(damage());
+            StartCoroutine(MissleStart());
         }
-        if (destroy || bullet || ground)
+
+        if (active)
         {
-            Destroy(this.gameObject);
+            Vector3 MissleTarget = new Vector3(target.position.x, target.position.y, -1);
+            transform.right = new Vector3(target.position.x - transform.position.x, target.position.y - transform.position.y, 0);
+            transform.position = Vector3.MoveTowards(transform.position, MissleTarget, MissleSpeed);
+
+            player = MissleCollider.IsTouchingLayers(LayerMask.GetMask("Player"));
+            destroy = MissleCollider.IsTouchingLayers(LayerMask.GetMask("border"));
+            bullet = MissleCollider.IsTouchingLayers(LayerMask.GetMask("bullet"));
+            ground = MissleCollider.IsTouchingLayers(LayerMask.GetMask("ground"));
+            blocked = MissleCollider.IsTouchingLayers(LayerMask.GetMask("block"));
+
+
+            if (player && !buisy)
+            {
+                buisy = true;
+                StartCoroutine(damage());
+            }
+            if (destroy || bullet || ground || blocked)
+            {
+                anim.Play("missleExplosion");
+                Destroy(this.gameObject);
+            }
         }
     }
 
@@ -52,5 +65,14 @@ public class missle : MonoBehaviour
         GameObject.Find("GM").GetComponent<GM>().healthPlayer -= 5;
         Destroy(this.gameObject);
         StopCoroutine(damage());
+    }
+
+    IEnumerator MissleStart()
+    {
+        Vector3 MissleTarget = new Vector3(1.496f, 1.411f, -1);
+        transform.position = Vector3.MoveTowards(transform.position, MissleTarget, MissleSpeed);
+        yield return new WaitForSeconds(3);
+        active = true;
+        StopCoroutine(MissleStart());
     }
 }

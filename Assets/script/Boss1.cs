@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class enemy : MonoBehaviour
+public class Boss1 : MonoBehaviour
 {
     public bool Buisy = false;
     public GameObject player;

@@ -5,6 +5,8 @@ using System.Collections;
 
 public class GM : MonoBehaviour
 {
+    private Scene scene;
+
     public int healthPlayer = 100;
     public int healthEnemy = 20;
 
@@ -23,6 +25,7 @@ public class GM : MonoBehaviour
 
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
         StartCoroutine(activateEnemy());
         scoreText.text = "0000000" + score;
     }
@@ -97,10 +100,17 @@ public class GM : MonoBehaviour
 
     IEnumerator enemyDed()
     {
-        GameObject.Find("Boss").GetComponent<enemy>().audioSource.clip = GameObject.Find("Boss").GetComponent<enemy>().deathScream;
-        GameObject.Find("Boss").GetComponent<enemy>().audioSource.Play();
-        GameObject.Find("Boss").GetComponent<Animator>().Play("bossDied");
-        boolUpdate.LVL1Complete = true;
+        if (scene.name == "lvl1")
+        {
+            GameObject.Find("Boss").GetComponent<Boss1>().audioSource.clip = GameObject.Find("Boss").GetComponent<Boss1>().deathScream;
+            GameObject.Find("Boss").GetComponent<Boss1>().audioSource.Play();
+            GameObject.Find("Boss").GetComponent<Animator>().Play("bossDied");
+            boolUpdate.LVL1Complete = true;
+        }
+        if (scene.name == "lvl2")
+        {
+            boolUpdate.LVL2Complete = true;
+        }
         yield return new WaitForSeconds(1.1f);
         SceneManager.LoadScene("Menu");
     }
