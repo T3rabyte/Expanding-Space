@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FlyingOrbSpawner : MonoBehaviour
@@ -8,7 +7,7 @@ public class FlyingOrbSpawner : MonoBehaviour
     public float Flyspeed = 0.005f;
     public Animator anim;
     public bool alive = true;
-    public GameObject missle;
+    public GameObject Orb;
     public bool facingRight = false;
 
     void Start()
@@ -20,6 +19,10 @@ public class FlyingOrbSpawner : MonoBehaviour
     
     void Update()
     {
+        if (this.gameObject.transform.position.x > 79.034)
+        {
+            Destroy(this.gameObject);
+        }
         Vector3 TargetPlayer = new Vector3(Player.position.x, 5.295693f, -0.9f);
         transform.position = Vector3.MoveTowards(transform.position, TargetPlayer, Flyspeed);
 
@@ -48,11 +51,11 @@ public class FlyingOrbSpawner : MonoBehaviour
             anim.SetBool("shoot", true);
             if (!facingRight)
             {
-                Instantiate(missle, new Vector3(this.transform.position.x - 0.042f, this.transform.position.y - 0.037693f, -1), Quaternion.identity);
+                Instantiate(Orb, new Vector3(this.transform.position.x - 0.042f, this.transform.position.y - 0.037693f, -1), Quaternion.identity);
             }
             if (facingRight)
             {
-                Instantiate(missle, new Vector3(this.transform.position.x + 0.042f, this.transform.position.y + 0.037693f, -1), Quaternion.identity);
+                Instantiate(Orb, new Vector3(this.transform.position.x + 0.042f, this.transform.position.y + 0.037693f, -1), Quaternion.identity);
             }
             yield return new WaitForSeconds(0.25f);
             anim.SetBool("shoot", false);

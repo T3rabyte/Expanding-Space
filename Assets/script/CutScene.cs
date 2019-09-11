@@ -15,7 +15,7 @@ public class CutScene : MonoBehaviour
 
     IEnumerator CutScneneStart()
     {
-        yield return new WaitForSeconds(6.11f);
+        yield return new WaitForSeconds(7.5f);
         SceneManager.LoadScene("Menu");
     }
 }

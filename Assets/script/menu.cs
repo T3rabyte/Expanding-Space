@@ -29,9 +29,17 @@ public class menu : MonoBehaviour
     public Sprite buttonShipIngedrukt;
     public Sprite buttonShipIngedrukt2;
 
+    public AudioSource AS;
+    public AudioClip backgroundMusic;
+
+    public GameObject controls;
+    public GameObject backButton;
+
 
     public void Start()
     {
+        AS.clip = backgroundMusic;
+        AS.Play();
         scene = SceneManager.GetActiveScene();
     }
 
@@ -49,9 +57,10 @@ public class menu : MonoBehaviour
         }
     }
 
-    public void controls()
+    public void naarControls()
     {
-        SceneManager.LoadScene("controls");
+        controls.SetActive(true);
+        backButton.SetActive(true);
     }
 
     public void playAgain()
@@ -62,6 +71,13 @@ public class menu : MonoBehaviour
     public void mainMenu()
     {
         SceneManager.LoadScene("main Menu");
+    }
+
+    public void back()
+    {
+        controls.SetActive(false);
+        backButton.SetActive(false);
+        ResetMenu();
     }
 
     public void ResetMenu()

@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class playerControllerScript : MonoBehaviour
 {
+    private Scene scene;
+
     public Rigidbody2D rb;
     public float maxSpeed = 5f;
     public float maxSpeedInAir = 3.2f;
@@ -14,19 +17,28 @@ public class playerControllerScript : MonoBehaviour
 
     public Animator anim;
 
-    public bool buisy = false;
+    public bool busy = false;
+    public bool GroundHit;
+    public int groundcount;
 
     float move;
-
     public float jumpForce = 700f;
 
+    public bool Death;
     public bool isGrounded;
+    public bool walinkgparticale;
 
     public Collider2D bodyCollider;
     public Collider2D groundCheck;
     public Collider2D bukCollider;
     public Collider2D melleeRange;
     public Collider2D blockCollider;
+
+    public ParticleSystem jump;
+    public ParticleSystem Shoot;
+    public ParticleSystem walk;
+
+    public bool blocking = false;
 
     public GameObject Orb;
 
@@ -46,21 +58,33 @@ public class playerControllerScript : MonoBehaviour
     void Start ()
     {
         anim = GetComponent<Animator>();
-	}
+        var emission = jump.emission;
+        scene = SceneManager.GetActiveScene();
+    }
 
     void Update()
     {
         laserInRange = bodyCollider.IsTouchingLayers(LayerMask.GetMask("laser"));
-
-        if (GameObject.Find("GM").GetComponent<GM>().healthEnemy >= 0)
+        Death = bodyCollider.IsTouchingLayers(LayerMask.GetMask("death"));
+        if (scene.name == "lvl1" || scene.name == "lvl2")
         {
-            input();
+            if (GameObject.Find("GM").GetComponent<GM>().healthEnemy >= 0)
+            {
+                input();
+            }
+            if (Death)
+            {
+                GameObject.Find("GM").GetComponent<GM>().healthPlayer = 0;
+            }
         }
 
-        if (laserInRange && GameObject.Find("Boss").GetComponent<BossSpaceship>().laserActive == true && !laserBuisy)
+        if (scene.name == "lvl2")
         {
-            laserBuisy = true;
-            StartCoroutine(laserDamage());
+            if (laserInRange && GameObject.Find("Boss").GetComponent<BossSpaceship>().laserActive == true && !laserBuisy)
+            {
+                laserBuisy = true;
+                StartCoroutine(laserDamage());
+            }
         }
     }
 
@@ -71,8 +95,20 @@ public class playerControllerScript : MonoBehaviour
         move = Input.GetAxis("Horizontal");
 
         anim.SetFloat("speed", Mathf.Abs(move));
+        if (Input.GetAxis("Horizontal") != 0 && walinkgparticale == false && scene.name == "lvl1")
+        {
+            walinkgparticale = true;
+            walk.Play();
+        }
+        else if (Input.GetAxis("Horizontal") == 0 && scene.name == "lvl1")
+        {
+            walinkgparticale = false;
+            walk.Stop();
+
+        }
 
         //////////////////////////////////////////////////////////////////////////////// Horizontal movement
+        
         if (isGrounded && !buk)
         {
             rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
@@ -80,6 +116,8 @@ public class playerControllerScript : MonoBehaviour
         if (!isGrounded)
         {
             rb.velocity = new Vector2(move * maxSpeedInAir, rb.velocity.y);
+            walk.Stop();
+            walinkgparticale = false;
         }
 
         //////////////////////////////////////////////////////////////////////////////// Sprite Flipping
@@ -112,7 +150,7 @@ public class playerControllerScript : MonoBehaviour
 
         //////////////////////////////////////////////////////////////////////////////// bukken
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && move < 0.01)
         {
             buk = true;
             bukCollider.enabled = false;
@@ -127,7 +165,7 @@ public class playerControllerScript : MonoBehaviour
 
         //////////////////////////////////////////////////////////////////////////////// shieten
 
-        if (Input.GetMouseButtonDown(1) && !buk && isGrounded)
+        if (Input.GetMouseButtonDown(0) && !buk && isGrounded)
         {
             StartCoroutine(shoot());
         }
@@ -136,18 +174,20 @@ public class playerControllerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftAlt) && isGrounded)
         {
+            blocking = true;
             blockCollider.enabled = true;
             anim.SetBool("block", true);
         }
         else if (Input.GetKeyUp(KeyCode.LeftAlt))
         {
+            blocking = false;
             blockCollider.enabled = false;
             anim.SetBool("block", false);
         }
 
         //////////////////////////////////////////////////////////////////////////////// mellee
 
-        if (Input.GetMouseButtonDown(0) && !attacking)
+        if (Input.GetMouseButtonDown(1) && !attacking)
         {
             attacking = true;
             attackTimer = attackCd;
@@ -194,19 +234,19 @@ public class playerControllerScript : MonoBehaviour
         {
             anim.Play("playerShoot");
         }
-        if (move >= 0.01 && !buisy)
+        if (move >= 0.01 && !busy)
         {
-            buisy = true;
+            busy = true;
             anim.Play("playerWalkShoot");
             yield return new WaitForSeconds(0.3f);
-            buisy = false;
+            busy = false;
         }
-        if (move <= -0.01 && !buisy)
+        if (move <= -0.01 && !busy)
         {
-            buisy = true;
+            busy = true;
             anim.Play("playerWalkShoot");
             yield return new WaitForSeconds(0.3f);
-            buisy = false;
+            busy = false;
         }
         audioSource.clip = OrbShot;
         audioSource.volume = 1;

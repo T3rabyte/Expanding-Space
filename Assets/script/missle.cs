@@ -50,8 +50,7 @@ public class missle : MonoBehaviour
             }
             if (destroy || bullet || ground || blocked)
             {
-                anim.Play("missleExplosion");
-                Destroy(this.gameObject);
+                StartCoroutine(Explosion());
             }
         }
     }
@@ -74,5 +73,12 @@ public class missle : MonoBehaviour
         yield return new WaitForSeconds(3);
         active = true;
         StopCoroutine(MissleStart());
+    }
+
+    IEnumerator Explosion()
+    {
+        anim.Play("missleExplosion");
+        yield return new WaitForSeconds(0.18f);
+        Destroy(this.gameObject);
     }
 }

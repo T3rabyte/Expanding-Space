@@ -8,7 +8,8 @@ public class rollendeEnemy : MonoBehaviour
     public Transform target;
     public bool facingRight = false;
     public bool InrangePlayer;
-    public bool buisy = false;
+    public bool busy = false;
+    public bool death;
     public Collider2D RollCollider;
 
     void Start()
@@ -22,14 +23,20 @@ public class rollendeEnemy : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, TargetPlayer, rollSpeed);
 
         InrangePlayer = RollCollider.IsTouchingLayers(LayerMask.GetMask("Player"));
-        if (InrangePlayer && !buisy)
+        death = RollCollider.IsTouchingLayers(LayerMask.GetMask("death"));
+
+        if (death)
         {
-            buisy = true;
+            Destroy(this.gameObject);
+        }
+        if (InrangePlayer && !busy)
+        {
+            busy = true;
             StartCoroutine(damage());
         }
         if (!InrangePlayer)
         {
-            buisy = false;
+            busy = false;
             StopCoroutine(damage());
         }
 

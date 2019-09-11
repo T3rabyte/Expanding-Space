@@ -60,7 +60,7 @@ public class LakituOrb : MonoBehaviour
             buisy = true;
             StartCoroutine(damage());
         }
-        if (destroy || ground)
+        if (destroy || ground || this.gameObject.transform.position.x > 79.034)
         {
             Destroy(this.gameObject);
         }

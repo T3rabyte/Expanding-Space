@@ -4,6 +4,11 @@ public class cameraController : MonoBehaviour
 {
     public GameObject player;
 
+    public GameObject UIBossBackground;
+    public GameObject UIBossRand;
+    public GameObject UIBossSlider;
+    public GameObject border;
+
     public float oudelocatie;
     public float nieuwelocatie;
 
@@ -21,15 +26,18 @@ public class cameraController : MonoBehaviour
 
     void Update()
     {
-        if (player.transform.position.x < 79.38)
+        if (player.transform.position.x < 79.034)
         {
             locatie();
         }
         if (player.transform.position.x > 79.38)
         {
             transform.position = new Vector3(81.154f, 4.7f, -10);
-            GameObject.Find("border").GetComponent<BoxCollider2D>().enabled = true;
+            border.SetActive(true);
             background.transform.position = new Vector3(81.154f, 4.652212f, -1.0625f);
+            UIBossBackground.SetActive(true);
+            UIBossRand.SetActive(true);
+            UIBossSlider.SetActive(true);
         }
 
         inRange = endOfCamera.IsTouchingLayers(LayerMask.GetMask("player"));

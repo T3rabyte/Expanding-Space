@@ -106,12 +106,15 @@ public class GM : MonoBehaviour
             GameObject.Find("Boss").GetComponent<Boss1>().audioSource.Play();
             GameObject.Find("Boss").GetComponent<Animator>().Play("bossDied");
             boolUpdate.LVL1Complete = true;
+            yield return new WaitForSeconds(1.1f);
+            SceneManager.LoadScene("Menu");
         }
         if (scene.name == "lvl2")
         {
             boolUpdate.LVL2Complete = true;
+            yield return new WaitForSeconds(1.1f);
+            SceneManager.LoadScene("Victory");
         }
-        yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadScene("Menu");
+        
     }
 }

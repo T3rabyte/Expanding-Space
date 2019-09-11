@@ -14,7 +14,7 @@ public class EnemyProjectile : MonoBehaviour
 
     float orbXposition;
 
-    bool buisy = false;
+    bool busy = false;
     
 
     void Start()
@@ -30,9 +30,9 @@ public class EnemyProjectile : MonoBehaviour
         
         rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
         
-        if (inRange && !buisy)
+        if (inRange && !busy)
         {
-            buisy = true;
+            busy = true;
             StartCoroutine(damage());
         }
         if (destroy)

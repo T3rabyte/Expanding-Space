@@ -5,14 +5,21 @@ using UnityEngine;
 public class mainscreen : MonoBehaviour
 {
     public Animator anim;
+    public bool Busy = false;
+    public AudioSource AS;
+    public AudioClip backgroundMusic;
 
-    public bool Buisy = false;
-    
+    void Start()
+    {
+        AS.clip = backgroundMusic;
+        AS.Play();
+    }
+
     void Update()
     {
-        if (Random.value <= 0.01 && !Buisy)
+        if (Random.value <= 0.002 && !Busy)
         {
-            Buisy = true;
+            Busy = true;
             StartCoroutine(Bling());
         }
 
@@ -27,7 +34,7 @@ public class mainscreen : MonoBehaviour
     {
         anim.Play("mainscreenBling");
         yield return new WaitForSeconds(0.45f);
-        Buisy = false;
+        Busy = false;
         StopCoroutine(Bling());
     }
 
@@ -36,5 +43,6 @@ public class mainscreen : MonoBehaviour
         anim.SetBool("FadeStart", true);
         yield return new WaitForSeconds(0.45f);
         SceneManager.LoadScene("Cutscene");
+        StopCoroutine(StartGame());
     }
 }
